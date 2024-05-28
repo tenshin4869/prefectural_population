@@ -32,20 +32,23 @@ export default function Home() {
   ];
 
   useEffect(() => {
+    console.log("Fetching prefectures data...");
     axios
       .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
         headers: { "X-API-KEY": process.env.NEXT_PUBLIC_API_KEY },
       })
       .then((res) => {
+        console.log("Prefectures data fetched:", res.data.result);
         setPrefectures(res.data.result);
       })
       .catch((err) => {
-        console.log(err);
+        console.error("Error fetching prefectures data:", err);
       });
   }, []);
 
   useEffect(() => {
     if (selectedPrefCode !== null) {
+      console.log("Fetching population data for prefecture:", selectedPrefCode);
       axios
         .get(
           `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=${selectedPrefCode}`,
@@ -56,6 +59,7 @@ export default function Home() {
           }
         )
         .then((res) => {
+          console.log("Population data fetched:", res.data.result.data);
           const data = res.data.result.data;
           const selectedData =
             data.find((d: any) => d.label === populationType)?.data || [];
@@ -66,7 +70,7 @@ export default function Home() {
           setSelectedPrefName(selectedPref ? selectedPref.prefName : "");
         })
         .catch((err) => {
-          console.log(err);
+          console.error("Error fetching population data:", err);
         });
     } else {
       setPopulationData([]);
@@ -101,7 +105,7 @@ export default function Home() {
               selectedPrefCode={selectedPrefCode}
             />
           ) : (
-            <p className="text-lg">Loading...</p>
+            <p>Loading...</p>
           )}
         </div>
         <div className="px-6 p-10 ">
