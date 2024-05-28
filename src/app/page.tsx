@@ -56,6 +56,7 @@ export default function Home() {
           const selectedData =
             data.find((d: any) => d.label === populationType)?.data || [];
           setPopulationData(selectedData);
+          console.log(selectedData);
         })
         .catch((err) => {
           console.log(err);
@@ -80,11 +81,12 @@ export default function Home() {
           都道府県人口推移
         </h1>
       </div>
-      <div className="px-6 pt-10 ">
-        <h2 className="text-xl border-l-8 border-blue-500">都道府県一覧</h2>
-      </div>
+
       <div className="container mx-auto p-4">
-        <div className="flex flex-wrap justify-between my-5">
+        <div className="px-6 pt-10 ">
+          <h2 className="text-xl border-l-8 border-blue-500">都道府県一覧</h2>
+        </div>
+        <div className="flex flex-wrap justify-center sm:justify-between  my-5 mx-10">
           <CheckBox
             prefectures={prefectures}
             onChange={handleCheckbox}
@@ -96,7 +98,7 @@ export default function Home() {
             グラフ（下に表示されるよ！）
           </h2>
         </div>
-        <div className="flex flex-wrap justify-center mb-4 space-x-2">
+        <div className="flex flex-col sm:flex-row justify-center mb-4 space-x-2 ">
           {populationTypes.map((type) => (
             <button
               key={type}
