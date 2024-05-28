@@ -3,6 +3,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CheckBox from "./components/CheckBox";
 import Graph from "./components/Graph";
+import Highcharts from "highcharts";
+
+Highcharts.setOptions({
+  accessibility: {
+    enabled: false,
+  },
+});
 
 type PrefecturesData = {
   prefCode: number;
@@ -93,12 +100,14 @@ export default function Home() {
         <div className="px-6 pt-10 ">
           <h2 className="text-xl border-l-8 border-blue-500">都道府県一覧</h2>
         </div>
-        <div className="flex flex-wrap justify-center sm:justify-between  my-5 mx-10">
-          <CheckBox
-            prefectures={prefectures}
-            onChange={handleCheckbox}
-            selectedPrefCode={selectedPrefCode}
-          />
+        <div className="flex flex-wrap justify-center sm:justify-between my-5 mx-10">
+          {prefectures.length > 0 && (
+            <CheckBox
+              prefectures={prefectures}
+              onChange={handleCheckbox}
+              selectedPrefCode={selectedPrefCode}
+            />
+          )}
         </div>
         <div className="px-6 p-10 ">
           <h2 className="text-xl border-l-8 border-blue-500">
