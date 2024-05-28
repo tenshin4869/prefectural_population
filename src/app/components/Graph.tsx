@@ -19,6 +19,9 @@ const Graph: React.FC<GraphProps> = ({
   prefectureName,
 }) => {
   const options = {
+    accessibility: {
+      enabled: false,
+    },
     title: {
       text: `${title}推移`,
     },

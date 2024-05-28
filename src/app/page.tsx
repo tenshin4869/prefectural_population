@@ -24,7 +24,12 @@ export default function Home() {
     useState<PopulationType>("総人口");
   const [selectedPrefName, setSelectedPrefName] = useState<string>("");
 
-  const populationTypes = ["総人口", "年少人口", "生産年齢人口", "老年人口"];
+  const populationTypes: PopulationType[] = [
+    "総人口",
+    "年少人口",
+    "生産年齢人口",
+    "老年人口",
+  ];
 
   useEffect(() => {
     axios
@@ -109,7 +114,7 @@ export default function Home() {
                   ? "bg-blue-500 text-white"
                   : "bg-white text-blue-500"
               } rounded`}
-              onClick={() => setPopulationType(type as PopulationType)}
+              onClick={() => setPopulationType(type)}
             >
               {type}
             </button>
