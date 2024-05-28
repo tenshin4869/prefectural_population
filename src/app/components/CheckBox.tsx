@@ -11,7 +11,6 @@ type CheckBoxProps = {
   selectedPrefCode: number | null;
 };
 
-// 都道府県一覧のチェックボックスを表示するコンポーネント
 const CheckBox: React.FC<CheckBoxProps> = ({
   prefectures,
   onChange,

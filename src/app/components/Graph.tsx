@@ -10,9 +10,14 @@ type PopulationData = {
 type GraphProps = {
   populationData: PopulationData[];
   title: string;
+  prefectureName: string;
 };
 
-const Graph: React.FC<GraphProps> = ({ populationData, title }) => {
+const Graph: React.FC<GraphProps> = ({
+  populationData,
+  title,
+  prefectureName,
+}) => {
   const options = {
     title: {
       text: `${title}推移`,
@@ -27,7 +32,7 @@ const Graph: React.FC<GraphProps> = ({ populationData, title }) => {
     },
     series: [
       {
-        name: title,
+        name: prefectureName,
         data: populationData.map((data) => data.value),
         type: "line",
       },

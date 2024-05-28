@@ -22,14 +22,14 @@ export default function Home() {
   const [selectedPrefCode, setSelectedPrefCode] = useState<number | null>(null);
   const [populationType, setPopulationType] =
     useState<PopulationType>("総人口");
+  const [selectedPrefName, setSelectedPrefName] = useState<string>("");
 
   const populationTypes = ["総人口", "年少人口", "生産年齢人口", "老年人口"];
 
-  // 都道府県データを取得
   useEffect(() => {
     axios
       .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
-        headers: { "X-API-KEY": "7LjiidnATvOEygVKNk3lbYoHHDQ2PFRdlPhogABN" },
+        headers: { "X-API-KEY": process.env.NEXT_PUBLIC_API_KEY },
       })
       .then((res) => {
         setPrefectures(res.data.result);
@@ -39,7 +39,6 @@ export default function Home() {
       });
   }, []);
 
-  // 選択された都道府県の人口データを取得
   useEffect(() => {
     if (selectedPrefCode !== null) {
       axios
@@ -47,7 +46,7 @@ export default function Home() {
           `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=${selectedPrefCode}`,
           {
             headers: {
-              "X-API-KEY": "7LjiidnATvOEygVKNk3lbYoHHDQ2PFRdlPhogABN",
+              "X-API-KEY": process.env.NEXT_PUBLIC_API_KEY,
             },
           }
         )
@@ -56,7 +55,10 @@ export default function Home() {
           const selectedData =
             data.find((d: any) => d.label === populationType)?.data || [];
           setPopulationData(selectedData);
-          console.log(selectedData);
+          const selectedPref = prefectures.find(
+            (pref) => pref.prefCode === selectedPrefCode
+          );
+          setSelectedPrefName(selectedPref ? selectedPref.prefName : "");
         })
         .catch((err) => {
           console.log(err);
@@ -116,7 +118,11 @@ export default function Home() {
         <div className="w-full">
           {populationData.length > 0 && (
             <div className="w-full lg:w-3/4 mx-auto">
-              <Graph populationData={populationData} title={populationType} />
+              <Graph
+                populationData={populationData}
+                title={populationType}
+                prefectureName={selectedPrefName}
+              />
             </div>
           )}
         </div>
