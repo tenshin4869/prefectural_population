@@ -10,7 +10,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx", // "preserve" から "react-jsx" へ変更
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
