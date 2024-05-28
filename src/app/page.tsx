@@ -94,14 +94,14 @@ export default function Home() {
           <h2 className="text-xl border-l-8 border-blue-500">都道府県一覧</h2>
         </div>
         <div className="flex flex-wrap justify-center sm:justify-between  my-5 mx-10">
-          {prefectures.length > 0 ? (
+          {prefectures && prefectures.length > 0 ? (
             <CheckBox
               prefectures={prefectures}
               onChange={handleCheckbox}
               selectedPrefCode={selectedPrefCode}
             />
           ) : (
-            <p>Loading...</p>
+            <p className="text-lg">Loading...</p>
           )}
         </div>
         <div className="px-6 p-10 ">
